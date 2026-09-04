@@ -1,42 +1,31 @@
 {
-  "updated": "2026-09-04 07:36 UTC",
+  "updated": "2026-09-04 07:48 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
-    {
-      "id": "cere-llama70",
-      "label": "Llama 3.3 70B",
-      "provider": "Cerebras",
-      "price": 1,
-      "status": "error"
-    },
     {
       "id": "cere-gptoss",
       "label": "GPT-OSS 120B",
       "provider": "Cerebras",
       "price": 0.75,
-      "status": "error"
+      "status": "error",
+      "note": "HTTP 402: {\"message\":\"Payment required to access this resource. Visit your billing tab.\",\"type\":\"payment_required_error\",\"param\":\"quota\",\"code\":\"payment_require"
     },
     {
-      "id": "groq-llama70",
-      "label": "Llama 3.3 70B",
+      "id": "groq-gptoss120",
+      "label": "GPT-OSS 120B",
       "provider": "Groq",
-      "price": 0.79,
-      "status": "error"
+      "price": 0.6,
+      "status": "error",
+      "note": "no output"
     },
     {
-      "id": "groq-llama8",
-      "label": "Llama 3.1 8B Instant",
+      "id": "groq-gptoss20",
+      "label": "GPT-OSS 20B",
       "provider": "Groq",
-      "price": 0.08,
-      "status": "error"
-    },
-    {
-      "id": "groq-gemma9",
-      "label": "Gemma 2 9B",
-      "provider": "Groq",
-      "price": 0.2,
-      "status": "error"
+      "price": 0.3,
+      "status": "error",
+      "note": "no output"
     },
     {
       "id": "gem-flash20",
@@ -53,17 +42,17 @@
       "status": "skipped"
     },
     {
-      "id": "or-qwen72",
-      "label": "Qwen 2.5 72B",
-      "provider": "OpenRouter (free)",
-      "price": 0.4,
-      "status": "skipped"
-    },
-    {
       "id": "or-deepseek",
       "label": "DeepSeek R1",
       "provider": "OpenRouter (free)",
       "price": 0.55,
+      "status": "skipped"
+    },
+    {
+      "id": "or-qwen72",
+      "label": "Qwen 2.5 72B",
+      "provider": "OpenRouter (free)",
+      "price": 0.4,
       "status": "skipped"
     }
   ],
@@ -106,6 +95,10 @@
     },
     {
       "t": "07:36 UTC",
+      "scores": {}
+    },
+    {
+      "t": "07:48 UTC",
       "scores": {}
     }
   ]
