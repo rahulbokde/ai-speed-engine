@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-04 12:12 UTC",
+  "updated": "2026-09-04 16:30 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,7 +17,7 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.22,
+      "ttft": 0.28,
       "tps": 478
     },
     {
@@ -26,8 +26,8 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.12,
-      "tps": 752
+      "ttft": 0.25,
+      "tps": 830
     },
     {
       "id": "gem-flash20",
@@ -115,6 +115,13 @@
       "scores": {
         "groq-gptoss120": 478,
         "groq-gptoss20": 752
+      }
+    },
+    {
+      "t": "16:30 UTC",
+      "scores": {
+        "groq-gptoss120": 478,
+        "groq-gptoss20": 830
       }
     }
   ]
