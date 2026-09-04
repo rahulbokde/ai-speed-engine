@@ -1,0 +1,22 @@
+{
+  "updated": "sample data",
+  "vantage": "sample (run the workflow to generate live data)",
+  "sample": true,
+  "models": [
+    { "id": "cere-llama70", "label": "Llama 3.3 70B",        "provider": "Cerebras",         "price": 1.00, "tps": 2100, "ttft": 0.25, "status": "ok" },
+    { "id": "cere-gptoss",  "label": "GPT-OSS 120B",         "provider": "Cerebras",         "price": 0.75, "tps": 1800, "ttft": 0.22, "status": "ok" },
+    { "id": "groq-llama70", "label": "Llama 3.3 70B",        "provider": "Groq",             "price": 0.79, "tps": 1400, "ttft": 0.30, "status": "ok" },
+    { "id": "groq-llama8",  "label": "Llama 3.1 8B Instant", "provider": "Groq",             "price": 0.08, "tps": 1250, "ttft": 0.20, "status": "ok" },
+    { "id": "groq-gemma9",  "label": "Gemma 2 9B",           "provider": "Groq",             "price": 0.20, "tps": 500,  "ttft": 0.25, "status": "ok" },
+    { "id": "gem-flash20",  "label": "Gemini 2.0 Flash",     "provider": "Google",           "price": 0.40, "tps": 230,  "ttft": 0.35, "status": "ok" },
+    { "id": "gem-flash25",  "label": "Gemini 2.5 Flash",     "provider": "Google",           "price": 2.50, "tps": 220,  "ttft": 0.50, "status": "ok" },
+    { "id": "or-qwen72",    "label": "Qwen 2.5 72B",         "provider": "OpenRouter (free)", "price": 0.40, "tps": 60,   "ttft": 1.40, "status": "ok" },
+    { "id": "or-deepseek",  "label": "DeepSeek R1",          "provider": "OpenRouter (free)", "price": 0.55, "tps": 40,   "ttft": 2.60, "status": "ok" }
+  ],
+  "history": [
+    { "t": "09:00 UTC", "scores": { "cere-llama70": 2050, "groq-llama70": 1380, "gem-flash20": 228, "or-deepseek": 44 } },
+    { "t": "09:30 UTC", "scores": { "cere-llama70": 2110, "groq-llama70": 1420, "gem-flash20": 231, "or-deepseek": 39 } },
+    { "t": "10:00 UTC", "scores": { "cere-llama70": 2080, "groq-llama70": 1360, "gem-flash20": 225, "or-deepseek": 46 } },
+    { "t": "10:30 UTC", "scores": { "cere-llama70": 2100, "groq-llama70": 1400, "gem-flash20": 232, "or-deepseek": 41 } }
+  ]
+}
