@@ -14,29 +14,27 @@ const SAMPLES    = 3;     // median of 3 kills network blips
 const TIMEOUT_MS = 30000;
 const HISTORY_CAP = 96;   // 96 snapshots ~= 48h at 30-min cadence
 
-// Free-tier line-up. `price` = approximate published OUTPUT $/1M tokens (used for
-// the value column only — free-tier testing itself is free; verify with provider).
-// Free model IDs (esp. OpenRouter :free and Cerebras llama) rotate/vary — if one
-// errors, swap in a current model. IDs here match the widget's chart, keep stable.
+// Free-tier line-up (verified current 2026-09-04). `price` = approx published
+// OUTPUT $/1M tokens (value column only — free-tier testing itself is free).
+// ⚠️ Providers deprecate models often: Groq killed llama-3.1/3.3 (Aug 16 2026);
+// Cerebras narrowed to gpt-oss-120b/gemma. If a model errors, the reason is now
+// saved in data.json ("note") and the Actions log — swap in a current model ID.
+// Cerebras free tier = 5 requests/min, so only ONE Cerebras model here to be safe.
 const MODELS = [
-  { id:"cere-llama70", label:"Llama 3.3 70B", provider:"Cerebras", price:1.00,
-    base:"https://api.cerebras.ai/v1/chat/completions", model:"llama-3.3-70b", keyEnv:"CEREBRAS_API_KEY" },
-  { id:"cere-gptoss",  label:"GPT-OSS 120B",  provider:"Cerebras", price:0.75,
+  { id:"cere-gptoss",    label:"GPT-OSS 120B", provider:"Cerebras", price:0.75,
     base:"https://api.cerebras.ai/v1/chat/completions", model:"gpt-oss-120b", keyEnv:"CEREBRAS_API_KEY" },
-  { id:"groq-llama70", label:"Llama 3.3 70B", provider:"Groq", price:0.79,
-    base:"https://api.groq.com/openai/v1/chat/completions", model:"llama-3.3-70b-versatile", keyEnv:"GROQ_API_KEY" },
-  { id:"groq-llama8",  label:"Llama 3.1 8B Instant", provider:"Groq", price:0.08,
-    base:"https://api.groq.com/openai/v1/chat/completions", model:"llama-3.1-8b-instant", keyEnv:"GROQ_API_KEY" },
-  { id:"groq-gemma9",  label:"Gemma 2 9B", provider:"Groq", price:0.20,
-    base:"https://api.groq.com/openai/v1/chat/completions", model:"gemma2-9b-it", keyEnv:"GROQ_API_KEY" },
-  { id:"gem-flash20",  label:"Gemini 2.0 Flash", provider:"Google", price:0.40,
+  { id:"groq-gptoss120", label:"GPT-OSS 120B", provider:"Groq", price:0.60,
+    base:"https://api.groq.com/openai/v1/chat/completions", model:"openai/gpt-oss-120b", keyEnv:"GROQ_API_KEY" },
+  { id:"groq-gptoss20",  label:"GPT-OSS 20B", provider:"Groq", price:0.30,
+    base:"https://api.groq.com/openai/v1/chat/completions", model:"openai/gpt-oss-20b", keyEnv:"GROQ_API_KEY" },
+  { id:"gem-flash20",    label:"Gemini 2.0 Flash", provider:"Google", price:0.40,
     base:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-2.0-flash", keyEnv:"GEMINI_API_KEY" },
-  { id:"gem-flash25",  label:"Gemini 2.5 Flash", provider:"Google", price:2.50,
+  { id:"gem-flash25",    label:"Gemini 2.5 Flash", provider:"Google", price:2.50,
     base:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-2.5-flash", keyEnv:"GEMINI_API_KEY" },
-  { id:"or-qwen72",    label:"Qwen 2.5 72B", provider:"OpenRouter (free)", price:0.40,
-    base:"https://openrouter.ai/api/v1/chat/completions", model:"qwen/qwen-2.5-72b-instruct:free", keyEnv:"OPENROUTER_API_KEY" },
-  { id:"or-deepseek",  label:"DeepSeek R1", provider:"OpenRouter (free)", price:0.55,
+  { id:"or-deepseek",    label:"DeepSeek R1", provider:"OpenRouter (free)", price:0.55,
     base:"https://openrouter.ai/api/v1/chat/completions", model:"deepseek/deepseek-r1:free", keyEnv:"OPENROUTER_API_KEY" },
+  { id:"or-qwen72",      label:"Qwen 2.5 72B", provider:"OpenRouter (free)", price:0.40,
+    base:"https://openrouter.ai/api/v1/chat/completions", model:"qwen/qwen-2.5-72b-instruct:free", keyEnv:"OPENROUTER_API_KEY" },
 ];
 
 function median(a){
@@ -56,13 +54,17 @@ async function measureOnce(m, key){
       method: "POST",
       headers: { "Authorization": "Bearer " + key, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: m.model, stream: true, stream_options: { include_usage: true },
+        model: m.model, stream: true,
         temperature: 0, max_tokens: MAX_TOKENS,
         messages: [{ role: "user", content: PROMPT }]
       }),
       signal: ctrl.signal
     });
-    if(!res.ok || !res.body) throw new Error("HTTP " + res.status);
+    if(!res.ok || !res.body){
+      let detail = "";
+      try { detail = (await res.text()).replace(/\s+/g, " ").slice(0, 160); } catch {}
+      throw new Error("HTTP " + res.status + (detail ? ": " + detail : ""));
+    }
 
     const reader = res.body.getReader();
     const dec = new TextDecoder();
@@ -99,12 +101,16 @@ async function measure(m){
   const key = process.env[m.keyEnv];
   if(!key) return { id:m.id, label:m.label, provider:m.provider, price:m.price, status:"skipped" };
   const ttfts = [], tpss = [];
+  let lastErr = "";
   for(let i = 0; i < SAMPLES; i++){
     try { const r = await measureOnce(m, key); ttfts.push(r.ttft); tpss.push(r.tps); }
-    catch { /* skip this sample */ }
+    catch(e) { lastErr = String((e && e.message) || e); }
     await new Promise(r => setTimeout(r, 400));
   }
-  if(!tpss.length) return { id:m.id, label:m.label, provider:m.provider, price:m.price, status:"error" };
+  if(!tpss.length){
+    console.log(`  └ ${m.id} error: ${lastErr}`);
+    return { id:m.id, label:m.label, provider:m.provider, price:m.price, status:"error", note: lastErr.slice(0,160) };
+  }
   return {
     id:m.id, label:m.label, provider:m.provider, price:m.price, status:"ok",
     ttft: +median(ttfts).toFixed(2),
