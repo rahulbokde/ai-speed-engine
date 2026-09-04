@@ -82,8 +82,10 @@ async function measureOnce(m, key){
         if(payload === "[DONE]") continue;
         let j; try { j = JSON.parse(payload); } catch { continue; }
         const c = j.choices && j.choices[0];
-        const delta = c && c.delta && c.delta.content;
-        if(delta){ if(firstAt === null) firstAt = performance.now(); text += delta; }
+        const dl = c && c.delta;
+        // GPT-OSS and other reasoning models stream tokens in a reasoning channel.
+        const piece = dl && (dl.content || dl.reasoning || dl.reasoning_content);
+        if(piece){ if(firstAt === null) firstAt = performance.now(); text += piece; }
         if(j.usage && j.usage.completion_tokens) completionTokens = j.usage.completion_tokens;
       }
     }
