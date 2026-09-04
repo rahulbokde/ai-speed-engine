@@ -1,0 +1,42 @@
+name: AI speed ping
+
+on:
+  schedule:
+    # Every 30 minutes (best-effort: GitHub may delay scheduled runs under load).
+    - cron: "*/30 * * * *"
+  workflow_dispatch:   # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write       # allows the job to commit the updated data.json
+
+concurrency:
+  group: ai-speed-ping
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Measure LLM speeds
+        env:
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node ping.mjs
+
+      - name: Commit results
+        run: |
+          git config user.name "speed-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "chore: update AI speed data [skip ci]" || echo "No changes to commit"
+          git push
