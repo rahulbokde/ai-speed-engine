@@ -14,12 +14,13 @@ const SAMPLES    = 3;     // median of 3 kills network blips
 const TIMEOUT_MS = 30000;
 const HISTORY_CAP = 96;   // 96 snapshots ~= 48h at 30-min cadence
 
-// Free-tier line-up (verified current 2026-09-04). `price` = approx published
-// OUTPUT $/1M tokens (value column only — free-tier testing itself is free).
-// ⚠️ Providers deprecate models often: Groq killed llama-3.1/3.3 (Aug 16 2026);
-// Cerebras narrowed to gpt-oss-120b/gemma. If a model errors, the reason is now
-// saved in data.json ("note") and the Actions log — swap in a current model ID.
-// Cerebras free tier = 5 requests/min, so only ONE Cerebras model here to be safe.
+// Model line-up — verified current 2026-09-05. `price` = approx published OUTPUT
+// $/1M tokens (value column only; free-tier testing is free; 0 = free model).
+// ⚠️ Providers deprecate models CONSTANTLY. Groq killed the Llama models (Aug 16);
+// Gemini 2.0/2.5 Flash 404'd (now 3.6-flash / 3.5-flash-lite); OpenRouter :free
+// deepseek/qwen went paid. Any model that errors is auto-hidden by the page's
+// ok-only board filter, and the reason is saved in data.json ("note") + Actions log.
+// Cerebras needs billing (5 req/min) — kept but usually errors until credits added.
 const MODELS = [
   { id:"cere-gptoss",    label:"GPT-OSS 120B", provider:"Cerebras", price:0.75,
     base:"https://api.cerebras.ai/v1/chat/completions", model:"gpt-oss-120b", keyEnv:"CEREBRAS_API_KEY" },
@@ -27,14 +28,16 @@ const MODELS = [
     base:"https://api.groq.com/openai/v1/chat/completions", model:"openai/gpt-oss-120b", keyEnv:"GROQ_API_KEY" },
   { id:"groq-gptoss20",  label:"GPT-OSS 20B", provider:"Groq", price:0.30,
     base:"https://api.groq.com/openai/v1/chat/completions", model:"openai/gpt-oss-20b", keyEnv:"GROQ_API_KEY" },
-  { id:"gem-flash20",    label:"Gemini 2.0 Flash", provider:"Google", price:0.40,
-    base:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-2.0-flash", keyEnv:"GEMINI_API_KEY" },
-  { id:"gem-flash25",    label:"Gemini 2.5 Flash", provider:"Google", price:2.50,
-    base:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-2.5-flash", keyEnv:"GEMINI_API_KEY" },
-  { id:"or-deepseek",    label:"DeepSeek R1", provider:"OpenRouter (free)", price:0.55,
-    base:"https://openrouter.ai/api/v1/chat/completions", model:"deepseek/deepseek-r1:free", keyEnv:"OPENROUTER_API_KEY" },
-  { id:"or-qwen72",      label:"Qwen 2.5 72B", provider:"OpenRouter (free)", price:0.40,
-    base:"https://openrouter.ai/api/v1/chat/completions", model:"qwen/qwen-2.5-72b-instruct:free", keyEnv:"OPENROUTER_API_KEY" },
+  { id:"groq-qwen",      label:"Qwen 3.6 27B", provider:"Groq", price:0.59,
+    base:"https://api.groq.com/openai/v1/chat/completions", model:"qwen/qwen3.6-27b", keyEnv:"GROQ_API_KEY" },
+  { id:"gem-flash20",    label:"Gemini 3.6 Flash", provider:"Google", price:3.75,
+    base:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-3.6-flash", keyEnv:"GEMINI_API_KEY" },
+  { id:"gem-flash25",    label:"Gemini 3.5 Flash-Lite", provider:"Google", price:2.50,
+    base:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-3.5-flash-lite", keyEnv:"GEMINI_API_KEY" },
+  { id:"or-qwennext",    label:"Qwen3 Next 80B", provider:"OpenRouter (free)", price:0,
+    base:"https://openrouter.ai/api/v1/chat/completions", model:"qwen/qwen3-next-80b-a3b-instruct:free", keyEnv:"OPENROUTER_API_KEY" },
+  { id:"or-gemma",       label:"Gemma 4 31B", provider:"OpenRouter (free)", price:0,
+    base:"https://openrouter.ai/api/v1/chat/completions", model:"google/gemma-4-31b-it:free", keyEnv:"OPENROUTER_API_KEY" },
 ];
 
 function median(a){
