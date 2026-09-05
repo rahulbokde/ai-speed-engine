@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-05 21:40 UTC",
+  "updated": "2026-09-05 23:16 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.32,
-      "tps": 490
+      "ttft": 0.41,
+      "tps": 383
     },
     {
       "id": "groq-gptoss20",
@@ -26,8 +26,8 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.37,
-      "tps": 964
+      "ttft": 0.27,
+      "tps": 927
     },
     {
       "id": "groq-qwen",
@@ -35,16 +35,17 @@
       "provider": "Groq",
       "price": 0.59,
       "status": "ok",
-      "ttft": 0.24,
-      "tps": 521
+      "ttft": 0.63,
+      "tps": 448
     },
     {
       "id": "gem-flash20",
       "label": "Gemini 3.6 Flash",
       "provider": "Google",
       "price": 3.75,
-      "status": "error",
-      "note": "HTTP 429: [{ \"error\": { \"code\": 429, \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error"
+      "status": "ok",
+      "ttft": 3.22,
+      "tps": 1175
     },
     {
       "id": "gem-flash25",
@@ -52,8 +53,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 0.8,
-      "tps": 326
+      "ttft": 0.68,
+      "tps": 335
     },
     {
       "id": "or-qwennext",
@@ -293,6 +294,16 @@
         "groq-gptoss20": 964,
         "groq-qwen": 521,
         "gem-flash25": 326
+      }
+    },
+    {
+      "t": "23:16 UTC",
+      "scores": {
+        "groq-gptoss120": 383,
+        "groq-gptoss20": 927,
+        "groq-qwen": 448,
+        "gem-flash20": 1175,
+        "gem-flash25": 335
       }
     }
   ]
