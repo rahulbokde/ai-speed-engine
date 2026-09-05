@@ -11,7 +11,10 @@ import { readFile, writeFile } from "node:fs/promises";
 const PROMPT     = "In exactly one paragraph of about 120 words, explain how a bicycle stays upright when it is moving. Write plain prose, no lists.";
 const MAX_TOKENS = 220;   // fixed output length => fair tokens/sec
 const SAMPLES    = 3;     // median of 3 (run in parallel) kills network blips
-const TIMEOUT_MS = 25000; // per-request cap; whole run finishes ~ the slowest model
+const TIMEOUT_MS = 40000; // per-request cap. Gemini 3.x Flash "thinks" ~12s+ before its first
+                          // token (Google does NOT allow disabling thinking on 3.x models) and
+                          // slows further under parallel load, so give it headroom; fast models
+                          // are unaffected and the run still ends ~ the slowest single request.
 const HISTORY_CAP = 96;   // 96 snapshots ~= 48h at 30-min cadence
 
 // Model line-up — verified current 2026-09-05. `price` = approx published OUTPUT
