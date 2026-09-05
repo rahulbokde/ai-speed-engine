@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-05 13:31 UTC",
+  "updated": "2026-09-05 13:41 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.21,
-      "tps": 490
+      "ttft": 0.18,
+      "tps": 480
     },
     {
       "id": "groq-gptoss20",
@@ -26,40 +26,51 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.08,
-      "tps": 888
+      "ttft": 0.09,
+      "tps": 884
+    },
+    {
+      "id": "groq-qwen",
+      "label": "Qwen 3.6 27B",
+      "provider": "Groq",
+      "price": 0.59,
+      "status": "ok",
+      "ttft": 0.13,
+      "tps": 497
     },
     {
       "id": "gem-flash20",
-      "label": "Gemini 2.0 Flash",
+      "label": "Gemini 3.6 Flash",
       "provider": "Google",
-      "price": 0.4,
-      "status": "error",
-      "note": "HTTP 404: [{ \"error\": { \"code\": 404, \"message\": \"This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-fla"
+      "price": 3.75,
+      "status": "ok",
+      "ttft": 12.27,
+      "tps": 740
     },
     {
       "id": "gem-flash25",
-      "label": "Gemini 2.5 Flash",
+      "label": "Gemini 3.5 Flash-Lite",
       "provider": "Google",
       "price": 2.5,
-      "status": "error",
-      "note": "HTTP 404: [{ \"error\": { \"code\": 404, \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/g"
+      "status": "ok",
+      "ttft": 0.55,
+      "tps": 318
     },
     {
-      "id": "or-deepseek",
-      "label": "DeepSeek R1",
+      "id": "or-qwennext",
+      "label": "Qwen3 Next 80B",
       "provider": "OpenRouter (free)",
-      "price": 0.55,
+      "price": 0,
       "status": "error",
-      "note": "HTTP 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: deepseek/deepseek-r1\",\"code\":404},"
+      "note": "HTTP 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: qwen/qwen3-next-80b-a3b-instruct\","
     },
     {
-      "id": "or-qwen72",
-      "label": "Qwen 2.5 72B",
+      "id": "or-gemma",
+      "label": "Gemma 4 31B",
       "provider": "OpenRouter (free)",
-      "price": 0.4,
+      "price": 0,
       "status": "error",
-      "note": "HTTP 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: qwen/qwen-2.5-72b-instruct\",\"code\""
+      "note": "HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please re"
     }
   ],
   "history": [
@@ -175,6 +186,16 @@
       "scores": {
         "groq-gptoss120": 490,
         "groq-gptoss20": 888
+      }
+    },
+    {
+      "t": "13:41 UTC",
+      "scores": {
+        "groq-gptoss120": 480,
+        "groq-gptoss20": 884,
+        "groq-qwen": 497,
+        "gem-flash20": 740,
+        "gem-flash25": 318
       }
     }
   ]
