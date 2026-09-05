@@ -10,8 +10,8 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const PROMPT     = "In exactly one paragraph of about 120 words, explain how a bicycle stays upright when it is moving. Write plain prose, no lists.";
 const MAX_TOKENS = 220;   // fixed output length => fair tokens/sec
-const SAMPLES    = 3;     // median of 3 kills network blips
-const TIMEOUT_MS = 30000;
+const SAMPLES    = 3;     // median of 3 (run in parallel) kills network blips
+const TIMEOUT_MS = 25000; // per-request cap; whole run finishes ~ the slowest model
 const HISTORY_CAP = 96;   // 96 snapshots ~= 48h at 30-min cadence
 
 // Model line-up — verified current 2026-09-05. `price` = approx published OUTPUT
@@ -105,12 +105,13 @@ async function measureOnce(m, key){
 async function measure(m){
   const key = process.env[m.keyEnv];
   if(!key) return { id:m.id, label:m.label, provider:m.provider, price:m.price, status:"skipped" };
+  // Fire all samples at once (provider-bound, so no interference) and keep the successes.
+  const settled = await Promise.allSettled(Array.from({ length: SAMPLES }, () => measureOnce(m, key)));
   const ttfts = [], tpss = [];
   let lastErr = "";
-  for(let i = 0; i < SAMPLES; i++){
-    try { const r = await measureOnce(m, key); ttfts.push(r.ttft); tpss.push(r.tps); }
-    catch(e) { lastErr = String((e && e.message) || e); }
-    await new Promise(r => setTimeout(r, 400));
+  for(const s of settled){
+    if(s.status === "fulfilled"){ ttfts.push(s.value.ttft); tpss.push(s.value.tps); }
+    else { lastErr = String((s.reason && s.reason.message) || s.reason); }
   }
   if(!tpss.length){
     console.log(`  └ ${m.id} error: ${lastErr}`);
@@ -123,12 +124,10 @@ async function measure(m){
   };
 }
 
-// ---- run all models sequentially (gentle on free rate limits) --------------
-const results = [];
-for(const m of MODELS){
-  const r = await measure(m);
+// ---- measure ALL models in parallel (total run time ≈ the slowest single request) --
+const results = await Promise.all(MODELS.map(measure));
+for(const r of results){
   console.log(`${r.id}: ${r.status === "ok" ? r.tps + " tok/s, " + r.ttft + "s TTFT" : r.status}`);
-  results.push(r);
 }
 
 // ---- append to rolling history --------------------------------------------
