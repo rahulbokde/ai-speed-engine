@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-05 11:19 UTC",
+  "updated": "2026-09-05 13:31 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.2,
-      "tps": 485
+      "ttft": 0.21,
+      "tps": 490
     },
     {
       "id": "groq-gptoss20",
@@ -27,35 +27,39 @@
       "price": 0.3,
       "status": "ok",
       "ttft": 0.08,
-      "tps": 951
+      "tps": 888
     },
     {
       "id": "gem-flash20",
       "label": "Gemini 2.0 Flash",
       "provider": "Google",
       "price": 0.4,
-      "status": "skipped"
+      "status": "error",
+      "note": "HTTP 404: [{ \"error\": { \"code\": 404, \"message\": \"This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-fla"
     },
     {
       "id": "gem-flash25",
       "label": "Gemini 2.5 Flash",
       "provider": "Google",
       "price": 2.5,
-      "status": "skipped"
+      "status": "error",
+      "note": "HTTP 404: [{ \"error\": { \"code\": 404, \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/g"
     },
     {
       "id": "or-deepseek",
       "label": "DeepSeek R1",
       "provider": "OpenRouter (free)",
       "price": 0.55,
-      "status": "skipped"
+      "status": "error",
+      "note": "HTTP 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: deepseek/deepseek-r1\",\"code\":404},"
     },
     {
       "id": "or-qwen72",
       "label": "Qwen 2.5 72B",
       "provider": "OpenRouter (free)",
       "price": 0.4,
-      "status": "skipped"
+      "status": "error",
+      "note": "HTTP 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: qwen/qwen-2.5-72b-instruct\",\"code\""
     }
   ],
   "history": [
@@ -164,6 +168,13 @@
       "scores": {
         "groq-gptoss120": 485,
         "groq-gptoss20": 951
+      }
+    },
+    {
+      "t": "13:31 UTC",
+      "scores": {
+        "groq-gptoss120": 490,
+        "groq-gptoss20": 888
       }
     }
   ]
