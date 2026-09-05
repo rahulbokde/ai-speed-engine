@@ -16,6 +16,9 @@ const TIMEOUT_MS = 40000; // per-request cap. Gemini 3.x Flash "thinks" ~12s+ be
                           // slows further under parallel load, so give it headroom; fast models
                           // are unaffected and the run still ends ~ the slowest single request.
 const HISTORY_CAP = 96;   // 96 snapshots ~= 48h at 30-min cadence
+const MAX_TPS   = 3000;   // sanity ceiling: no real API sustains more. A higher value means a
+                          // reasoning model "thought" silently then burst its answer, making raw
+                          // tok/s meaningless — we fall back to whole-request throughput instead.
 
 // Model line-up — verified current 2026-09-05. `price` = approx published OUTPUT
 // $/1M tokens (value column only; free-tier testing is free; 0 = free model).
@@ -102,7 +105,12 @@ async function measureOnce(m, key){
   const ttft   = (firstAt - start) / 1000;
   const genSec = Math.max((end - firstAt) / 1000, 0.001);
   const toks   = completionTokens || Math.max(1, Math.round(text.length / 4));
-  return { ttft, tps: toks / genSec };
+  let tps = toks / genSec;
+  // Reasoning models (e.g. Gemini 3.x Flash) think silently, then dump the whole answer in a
+  // burst, so the streaming window is tiny and tok/s explodes (5000+). Above any real hardware,
+  // use effective throughput over the whole request so a slow-start thinker isn't ranked fastest.
+  if(tps > MAX_TPS) tps = toks / Math.max((end - start) / 1000, 0.001);
+  return { ttft, tps };
 }
 
 async function measure(m){
