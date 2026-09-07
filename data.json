@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-07 19:10 UTC",
+  "updated": "2026-09-07 21:59 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.35,
-      "tps": 486
+      "ttft": 0.32,
+      "tps": 485
     },
     {
       "id": "groq-gptoss20",
@@ -27,7 +27,7 @@
       "price": 0.3,
       "status": "ok",
       "ttft": 0.31,
-      "tps": 829
+      "tps": 800
     },
     {
       "id": "groq-qwen",
@@ -35,16 +35,17 @@
       "provider": "Groq",
       "price": 0.59,
       "status": "ok",
-      "ttft": 0.38,
-      "tps": 515
+      "ttft": 0.19,
+      "tps": 473
     },
     {
       "id": "gem-flash20",
       "label": "Gemini 3.6 Flash",
       "provider": "Google",
       "price": 3.75,
-      "status": "error",
-      "note": "HTTP 503: [{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again late"
+      "status": "ok",
+      "ttft": 3.73,
+      "tps": 3
     },
     {
       "id": "gem-flash25",
@@ -52,8 +53,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 0.6,
-      "tps": 308
+      "ttft": 0.76,
+      "tps": 306
     },
     {
       "id": "or-qwennext",
@@ -68,9 +69,8 @@
       "label": "Gemma 4 31B",
       "provider": "OpenRouter (free)",
       "price": 0,
-      "status": "ok",
-      "ttft": 1.17,
-      "tps": 41
+      "status": "error",
+      "note": "HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please re"
     }
   ],
   "history": [
@@ -437,6 +437,16 @@
         "groq-qwen": 515,
         "gem-flash25": 308,
         "or-gemma": 41
+      }
+    },
+    {
+      "t": "21:59 UTC",
+      "scores": {
+        "groq-gptoss120": 485,
+        "groq-gptoss20": 800,
+        "groq-qwen": 473,
+        "gem-flash20": 3,
+        "gem-flash25": 306
       }
     }
   ]
