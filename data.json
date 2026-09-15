@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-15 01:56 UTC",
+  "updated": "2026-09-15 07:40 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.47,
-      "tps": 481
+      "ttft": 0.35,
+      "tps": 485
     },
     {
       "id": "groq-gptoss20",
@@ -26,17 +26,16 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.45,
-      "tps": 910
+      "ttft": 0.23,
+      "tps": 959
     },
     {
       "id": "groq-qwen",
       "label": "Qwen 3.6 27B",
       "provider": "Groq",
       "price": 0.59,
-      "status": "ok",
-      "ttft": 0.27,
-      "tps": 505
+      "status": "error",
+      "note": "HTTP 404: {\"error\":{\"message\":\"The model `qwen/qwen3.6-27b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_fo"
     },
     {
       "id": "gem-flash20",
@@ -44,8 +43,8 @@
       "provider": "Google",
       "price": 3.75,
       "status": "ok",
-      "ttft": 3.69,
-      "tps": 2017
+      "ttft": 32.25,
+      "tps": 838
     },
     {
       "id": "gem-flash25",
@@ -53,8 +52,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 0.86,
-      "tps": 314
+      "ttft": 0.73,
+      "tps": 301
     },
     {
       "id": "or-qwennext",
@@ -960,6 +959,15 @@
         "groq-qwen": 505,
         "gem-flash20": 2017,
         "gem-flash25": 314
+      }
+    },
+    {
+      "t": "07:40 UTC",
+      "scores": {
+        "groq-gptoss120": 485,
+        "groq-gptoss20": 959,
+        "gem-flash20": 838,
+        "gem-flash25": 301
       }
     }
   ]
