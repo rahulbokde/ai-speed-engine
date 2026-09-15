@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-15 12:52 UTC",
+  "updated": "2026-09-15 17:19 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.27,
-      "tps": 491
+      "ttft": 0.67,
+      "tps": 421
     },
     {
       "id": "groq-gptoss20",
@@ -26,8 +26,8 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.32,
-      "tps": 929
+      "ttft": 0.53,
+      "tps": 736
     },
     {
       "id": "groq-qwen",
@@ -51,8 +51,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 0.63,
-      "tps": 280
+      "ttft": 0.9,
+      "tps": 290
     },
     {
       "id": "or-qwennext",
@@ -975,6 +975,14 @@
         "groq-gptoss120": 491,
         "groq-gptoss20": 929,
         "gem-flash25": 280
+      }
+    },
+    {
+      "t": "17:19 UTC",
+      "scores": {
+        "groq-gptoss120": 421,
+        "groq-gptoss20": 736,
+        "gem-flash25": 290
       }
     }
   ]
