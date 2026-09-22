@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22 18:48 UTC",
+  "updated": "2026-09-22 21:41 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.44,
-      "tps": 486
+      "ttft": 0.23,
+      "tps": 481
     },
     {
       "id": "groq-gptoss20",
@@ -26,8 +26,8 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.27,
-      "tps": 767
+      "ttft": 0.24,
+      "tps": 845
     },
     {
       "id": "groq-qwen",
@@ -42,8 +42,9 @@
       "label": "Gemini 3.6 Flash",
       "provider": "Google",
       "price": 3.75,
-      "status": "error",
-      "note": "HTTP 503: [{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again late"
+      "status": "ok",
+      "ttft": 5.69,
+      "tps": 967
     },
     {
       "id": "gem-flash25",
@@ -51,8 +52,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 0.73,
-      "tps": 298
+      "ttft": 0.63,
+      "tps": 239
     },
     {
       "id": "or-qwennext",
@@ -67,22 +68,11 @@
       "label": "Gemma 4 31B",
       "provider": "OpenRouter (free)",
       "price": 0,
-      "status": "ok",
-      "ttft": 1.03,
-      "tps": 39
+      "status": "error",
+      "note": "HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please re"
     }
   ],
   "history": [
-    {
-      "t": "20:13 UTC",
-      "scores": {
-        "groq-gptoss120": 447,
-        "groq-gptoss20": 674,
-        "groq-qwen": 452,
-        "gem-flash20": 5,
-        "gem-flash25": 438
-      }
-    },
     {
       "t": "22:40 UTC",
       "scores": {
@@ -985,6 +975,15 @@
         "groq-gptoss20": 767,
         "gem-flash25": 298,
         "or-gemma": 39
+      }
+    },
+    {
+      "t": "21:41 UTC",
+      "scores": {
+        "groq-gptoss120": 481,
+        "groq-gptoss20": 845,
+        "gem-flash20": 967,
+        "gem-flash25": 239
       }
     }
   ]
