@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26 19:23 UTC",
+  "updated": "2026-09-26 22:10 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.34,
-      "tps": 490
+      "ttft": 0.45,
+      "tps": 492
     },
     {
       "id": "groq-gptoss20",
@@ -26,8 +26,8 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.27,
-      "tps": 988
+      "ttft": 0.22,
+      "tps": 905
     },
     {
       "id": "groq-qwen",
@@ -43,8 +43,8 @@
       "provider": "Google",
       "price": 3.75,
       "status": "ok",
-      "ttft": 2.21,
-      "tps": 5
+      "ttft": 2.51,
+      "tps": 619
     },
     {
       "id": "gem-flash25",
@@ -53,7 +53,7 @@
       "price": 2.5,
       "status": "ok",
       "ttft": 0.65,
-      "tps": 277
+      "tps": 313
     },
     {
       "id": "or-qwennext",
@@ -73,16 +73,6 @@
     }
   ],
   "history": [
-    {
-      "t": "08:48 UTC",
-      "scores": {
-        "groq-gptoss120": 483,
-        "groq-gptoss20": 953,
-        "groq-qwen": 534,
-        "gem-flash20": 401,
-        "gem-flash25": 307
-      }
-    },
     {
       "t": "12:24 UTC",
       "scores": {
@@ -947,6 +937,15 @@
         "groq-gptoss20": 988,
         "gem-flash20": 5,
         "gem-flash25": 277
+      }
+    },
+    {
+      "t": "22:10 UTC",
+      "scores": {
+        "groq-gptoss120": 492,
+        "groq-gptoss20": 905,
+        "gem-flash20": 619,
+        "gem-flash25": 313
       }
     }
   ]
