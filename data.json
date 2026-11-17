@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17 03:45 UTC",
+  "updated": "2026-11-17 12:29 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.35,
-      "tps": 490
+      "ttft": 0.37,
+      "tps": 482
     },
     {
       "id": "groq-gptoss20",
@@ -26,8 +26,8 @@
       "provider": "Groq",
       "price": 0.3,
       "status": "ok",
-      "ttft": 0.43,
-      "tps": 944
+      "ttft": 0.28,
+      "tps": 879
     },
     {
       "id": "groq-qwen",
@@ -42,9 +42,8 @@
       "label": "Gemini 3.6 Flash",
       "provider": "Google",
       "price": 3.75,
-      "status": "ok",
-      "ttft": 20.72,
-      "tps": 617
+      "status": "error",
+      "note": "This operation was aborted"
     },
     {
       "id": "gem-flash25",
@@ -52,8 +51,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 2.58,
-      "tps": 336
+      "ttft": 8.7,
+      "tps": 343
     },
     {
       "id": "or-qwennext",
@@ -68,20 +67,12 @@
       "label": "Gemma 4 31B",
       "provider": "OpenRouter (free)",
       "price": 0,
-      "status": "error",
-      "note": "HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please re"
+      "status": "ok",
+      "ttft": 1.13,
+      "tps": 40
     }
   ],
   "history": [
-    {
-      "t": "20:58 UTC",
-      "scores": {
-        "groq-gptoss120": 465,
-        "groq-gptoss20": 915,
-        "gem-flash20": 1806,
-        "gem-flash25": 380
-      }
-    },
     {
       "t": "23:11 UTC",
       "scores": {
@@ -937,6 +928,15 @@
         "groq-gptoss20": 944,
         "gem-flash20": 617,
         "gem-flash25": 336
+      }
+    },
+    {
+      "t": "12:29 UTC",
+      "scores": {
+        "groq-gptoss120": 482,
+        "groq-gptoss20": 879,
+        "gem-flash25": 343,
+        "or-gemma": 40
       }
     }
   ]
