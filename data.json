@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20 08:28 UTC",
+  "updated": "2026-11-20 17:14 UTC",
   "vantage": "GitHub Actions runner (US)",
   "sample": false,
   "models": [
@@ -17,8 +17,8 @@
       "provider": "Groq",
       "price": 0.6,
       "status": "ok",
-      "ttft": 0.5,
-      "tps": 486
+      "ttft": 0.35,
+      "tps": 488
     },
     {
       "id": "groq-gptoss20",
@@ -27,7 +27,7 @@
       "price": 0.3,
       "status": "ok",
       "ttft": 0.29,
-      "tps": 824
+      "tps": 952
     },
     {
       "id": "groq-qwen",
@@ -43,7 +43,7 @@
       "provider": "Google",
       "price": 3.75,
       "status": "ok",
-      "ttft": 14.94,
+      "ttft": 20.77,
       "tps": 1
     },
     {
@@ -52,8 +52,8 @@
       "provider": "Google",
       "price": 2.5,
       "status": "ok",
-      "ttft": 0.81,
-      "tps": 324
+      "ttft": 1.02,
+      "tps": 362
     },
     {
       "id": "or-qwennext",
@@ -68,20 +68,12 @@
       "label": "Gemma 4 31B",
       "provider": "OpenRouter (free)",
       "price": 0,
-      "status": "error",
-      "note": "HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please re"
+      "status": "ok",
+      "ttft": 1.49,
+      "tps": 39
     }
   ],
   "history": [
-    {
-      "t": "18:56 UTC",
-      "scores": {
-        "groq-gptoss120": 483,
-        "groq-gptoss20": 785,
-        "gem-flash20": 940,
-        "gem-flash25": 351
-      }
-    },
     {
       "t": "22:55 UTC",
       "scores": {
@@ -934,6 +926,16 @@
         "groq-gptoss20": 824,
         "gem-flash20": 1,
         "gem-flash25": 324
+      }
+    },
+    {
+      "t": "17:14 UTC",
+      "scores": {
+        "groq-gptoss120": 488,
+        "groq-gptoss20": 952,
+        "gem-flash20": 1,
+        "gem-flash25": 362,
+        "or-gemma": 39
       }
     }
   ]
